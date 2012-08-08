@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>thisis.me</title>
+		
+		<link rel="stylesheet" href="style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+		</script>
+		
+		<script src="isotope.js"></script>
+		
+<script>
+		
+$(document).ready(function(){
+	
+	var $container = $('#content');
+	var toFilter = '*';
+	
+	$container.isotope({
+		filter: toFilter,
+		animationOptions: {
+			duration: 750,
+			easing: 'linear',
+			queue: false,
+		}
+	});
+	
+	$container.attr('data-current',toFilter);
+	
+	checkActive();
+
+	$('#nav a').click(function(){
+		var title = $(this).attr('title');
+		var text = $(this).text();
+		if(text == "All"){
+			var selector = title;
+		}
+		else {
+			var selector = "." + title;
+		}
+		
+		$container.attr('data-current',selector);
+		
+		$container.isotope({ 
+			filter: selector,
+			animationOptions: {
+				duration: 750,
+				easing: 'linear',
+				queue: false,
+			}
+		});
+		
+		checkActive();
+		
+		return false;
+	});
+	
+	function checkActive(){
+	
+	$('#nav a').each(function(){
+		
+		$(this).css({
+			color: '#595959'
+		});
+	
+		var title = $(this).attr('title');
+				
+		title = '.'+title;
+		
+		if(title=='.*'){
+			title = '*';
+		}
+		
+		
+		var currentCat = $container.attr('data-current');
+		
+		if(title==currentCat){
+			$(this).css({
+			color: '#00ff00'
+		});
+		}
+		
+	});
+	
+	
+	}
+	
+	
+
+});
+		</script>
+	</head>
+	
+	<body>
+		
+		<center>
+		<div id="header">
+			<img src="images/terence_header.png"/>
+		</div>
+		</center>
+		
+		<div id="nav">
+			<ul>
+				<li><a href="#" title="*">All</a></li>
+				<li><a href="#" title="cat1">Instagram</a></li>
+				<li><a href="#" title="cat2">Twitter</a></li>
+				<li><a href="#" title="cat3">Facebook</a></li>
+			</ul>
+		</div>
+		
+		<div id="content" data-current="">
+			<div class="box cat1">
+				<h2 class="box-title">Fro-yo!</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_1.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">2 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat1">
+				<h2 class="box-title">What a ceiling!</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_2.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">3 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat2">
+				<!-- <h2 class="box-title">Lorem Ipsum</h2> -->
+				<div class="box-text">
+					<center>
+					<span class="tweet">&#8220;Flight to NYC. See you soon NY crew!&#8221;</span>
+					</center>
+					<span class="attribution">1 hour ago via twitter</span>
+				</div>
+			</div>
+			
+			<div class="box cat1">
+				<h2 class="box-title">Stella</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_4_lg.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">3 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat3">
+				<h2 class="box-title">Excited about Objectified: The Movie</h2>
+				<div class="box-text">
+					It's impossible to cram a full film's worth of people, ideas, and images into a 90-second trailer... so think of this as a small taste: About the trailer: the voices belong to Jonathan Ive, Andrew Blauvelt, Marc Newson, and Karim Rashid. 
+					<br/>
+					<span class="attribution">3 hours ago via facebook</span>
+				</div>
+			</div>
+			
+			<div class="box cat2">
+				<!-- <h2 class="box-title">Lorem Ipsum</h2> -->
+				<div class="box-text">
+					<center>
+					<span class="tweet">&#8220;I've always been torn between the vestals of constancy and the avatars of change. -YSL&#8221;</span>
+					</center>
+					<span class="attribution">3 hours via twitter</span>
+				</div>
+			</div>
+			
+			<div class="box cat3">
+				<h2 class="box-title">Fall Fashion in Paris</h2>
+				<div class="box-text">
+					<img src="images/paris.jpg" width="248" height="180"/>
+					<br/>
+					I spent 3 weeks in Paris covering the French equivalent of Fashion Week. I also took a lot of photos. Please enjoy!
+					<span class="attribution">2 months ago via facebook</span>
+				</div>
+			</div>
+			
+			<div class="box cat1">
+				<h2 class="box-title">Nu shooz</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_5.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">3 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat2">
+				<!-- <h2 class="box-title">Lorem Ipsum</h2> -->
+				<div class="box-text">
+					<center>
+					<span class="tweet">&#8220;It's all in the sauce. (At Memphis Minnie's.)&#8221;</span>
+					</center>
+					<span class="attribution">2 days ago via twitter</span>
+				</div>
+			</div>
+			<div class="box cat1">
+				<h2 class="box-title">Fro-yo!</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_1.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">2 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat1">
+				<h2 class="box-title">What a ceiling!</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_2.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">3 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat2">
+				<!-- <h2 class="box-title">Lorem Ipsum</h2> -->
+				<div class="box-text">
+					<center>
+					<span class="tweet">&#8220;Flight to NYC. See you soon NY crew!&#8221;</span>
+					</center>
+					<span class="attribution">1 hour ago via twitter</span>
+				</div>
+			</div>
+			
+			<div class="box cat1">
+				<h2 class="box-title">Stella</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_4_lg.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">3 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat3">
+				<h2 class="box-title">Excited about Objectified: The Movie</h2>
+				<div class="box-text">
+					It's impossible to cram a full film's worth of people, ideas, and images into a 90-second trailer... so think of this as a small taste: About the trailer: the voices belong to Jonathan Ive, Andrew Blauvelt, Marc Newson, and Karim Rashid. 
+					<br/>
+					<span class="attribution">3 hours ago via facebook</span>
+				</div>
+			</div>
+			
+			<div class="box cat2">
+				<!-- <h2 class="box-title">Lorem Ipsum</h2> -->
+				<div class="box-text">
+					<center>
+					<span class="tweet">&#8220;I've always been torn between the vestals of constancy and the avatars of change. -YSL&#8221;</span>
+					</center>
+					<span class="attribution">3 hours via twitter</span>
+				</div>
+			</div>
+			
+			<div class="box cat3">
+				<h2 class="box-title">Fall Fashion in Paris</h2>
+				<div class="box-text">
+					<img src="images/paris.jpg" width="248" height="180"/>
+					<br/>
+					I spent 3 weeks in Paris covering the French equivalent of Fashion Week. I also took a lot of photos. Please enjoy!
+					<span class="attribution">2 months ago via facebook</span>
+				</div>
+			</div>
+			
+			<div class="box cat1">
+				<h2 class="box-title">Nu shooz</h2>
+				<div class="box-text">
+					<center>
+					<img src="images/instagram_5.png" height="205" width="205"><br/>
+					</center>
+					<span class="attribution">3 hours ago via instagram</span>
+				</div>
+			</div>
+			
+			<div class="box cat2">
+				<!-- <h2 class="box-title">Lorem Ipsum</h2> -->
+				<div class="box-text">
+					<center>
+					<span class="tweet">&#8220;It's all in the sauce. (At Memphis Minnie's.)&#8221;</span>
+					</center>
+					<span class="attribution">2 days ago via twitter</span>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
