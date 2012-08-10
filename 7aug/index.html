@@ -18,15 +18,25 @@ $(document).ready(function(){
 	var toFilter = '*';
 	
 	$container.isotope({
+		itemSelector: '.box',
 		filter: toFilter,
 		animationOptions: {
 			duration: 750,
 			easing: 'linear',
 			queue: false,
-		}
+		},
+		/*
+		masonry : {
+          columnWidth : 300
+        } */
 	});
 	
 	$container.attr('data-current',toFilter);
+	
+	$container.delegate( '.box', 'click', function(){
+      $(this).toggleClass('large');
+      $container.isotope('reLayout');
+    });
 	
 	checkActive();
 
