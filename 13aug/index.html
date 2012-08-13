@@ -25,6 +25,7 @@
 		<script src="libs/backbone.js"></script>
 		<script src="libs/dust-core-0.4.0.js"></script>
 		<script src="libs/jquery.timeago.js"></script>
+		<script src="libs/plugins.js"></script>
 		
 <script>
 var TIM = {};
@@ -51,6 +52,11 @@ TIM.collections.Events = Backbone.Collection.extend({
 		//could also subclass in parse?
 		parse: function(resp) {
 		  return (resp.events);
+		},
+		
+		setUrl: function(name) {
+		  name = name || "phil";
+		  this.url = TIM.apiUrl + 'authors/' + name + '/events';
 		}
 
 });
@@ -134,6 +140,13 @@ TIM.views.EventList  = Backbone.View.extend({
 });
 
 $(document).ready(function(){
+  
+  var parsedUri = parseUri(window.location.href);
+  console.log(parsedUri);
+  
+  TIM.pageInfo.authorName = parsedUri.queryKey.author || 'phil';
+  
+  
 	
 	var $container = $('#content');
 	var toFilter = '*';
@@ -213,6 +226,9 @@ $(document).ready(function(){
 	var eventListView;
 	
 	TIM.mainCollection = TIM.mainCollection || new (TIM.collections.Events);
+	
+	
+	TIM.mainCollection.setUrl(TIM.pageInfo.authorName);
 	
 	TIM.mainCollection.fetch({
 	  success: function(a,b,c) {
