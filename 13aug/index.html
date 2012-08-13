@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>thisis.me</title>
+		
+		<link rel="stylesheet" href="style.css">
+		
+		<style>
+		  .events {
+		    display:none;
+		  }
+		  
+		  
+		  
+		  
+		  
+		</style>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+		</script>
+		
+		<script src="isotope.js"></script>
+		<script src="libs/underscore.js"></script>
+		<script src="libs/backbone.js"></script>
+		<script src="libs/dust-core-0.4.0.js"></script>
+		<script src="libs/jquery.timeago.js"></script>
+		
+<script>
+var TIM = {};
+TIM.models = {};
+TIM.collections = {};
+TIM.views = {};
+TIM.apiUrl = "//api.thisis.me/v1/";
+TIM.pageInfo = {
+  authorName: "loree"
+}
+TIM.mainCollection = undefined;
+
+TIM.models.Event  = Backbone.Model.extend({
+  
+});
+
+TIM.collections.Events = Backbone.Collection.extend({
+		
+		url: TIM.apiUrl + 'authors/' + TIM.pageInfo.authorName + '/events',
+		
+		initialize: function() {
+		},
+		
+		//could also subclass in parse?
+		parse: function(resp) {
+		  return (resp.events);
+		}
+
+});
+
+TIM.views.EventList  = Backbone.View.extend({
+  className: "events",
+  
+  initialize: function(spec) {
+      _.bindAll(this, "render");
+			this.page = spec.page;
+  },
+
+  render: function(tmpl, callback) {
+    
+		var html = "";
+
+		var i = 0;
+		this.collection.each(function(item) {
+		  var service = "facebook";
+		  var origin = item.get('origin');
+		  
+		  if (origin.known) {
+		    service = origin.known.service_name;
+		  } else {
+		    service = origin.unknown.domain;
+		  }
+		  
+		  var cat = 'cat5';
+		  if(service == 'instagram') {
+		    cat = 'cat1'
+		  }
+		  if(service == 'twitter') {
+		    cat = 'cat2'
+		  }
+		  if(service == 'facebook') {
+		    cat = 'cat3'
+		  }
+		  if(service == 'linkedin') {
+		    cat = 'cat4'
+		  }
+		  
+		  var headline =  item.get('headline') || '';
+		  var content =  item.get('content') || '';
+		  
+		  var createTime = item.get("create_time");
+		  
+		  var timeago = "";
+		  
+		  if(createTime) {
+		    timeago = $.timeago(new Date(item.get("create_time") * 1000));
+		  }
+		  
+		  var attribution = timeago + ' via ' + service;
+		  
+		  var imgTag = '';
+		  
+		  var photo = item.get('photo');
+		  
+		  if (photo) {
+		    imgTag = '<br><img src="' + photo.image_url  +  '"/>'
+		  }
+		  
+		  html += '<div class="box ' + cat + '"><h2 class="box-title">' + headline + '</h2>'
+  		      + '<div class="box-text">' + content + imgTag + '<br/>'
+  		      + '<span class="attribution">' + attribution + '</span>'
+  		      + '</div></div>';
+  		i++;      
+		});
+		
+    this.$el.append(html);
+    
+    if($('#content').find(this.el).length == 0)  {
+      $('#content').append(this.$el);
+    }
+    
+    if(callback) {
+      callback(html);
+    }
+    
+  }
+});
+
+$(document).ready(function(){
+	
+	var $container = $('#content');
+	var toFilter = '*';
+	/*
+	//commented out the original isotope code
+	
+	$container.isotope({
+		filter: toFilter,
+		animationOptions: {
+			duration: 750,
+			easing: 'linear',
+			queue: false,
+		}
+	});
+	*/
+	
+	$container.attr('data-current',toFilter);
+	
+	checkActive();
+
+	$('#nav a').click(function(){
+		var title = $(this).attr('title');
+		var text = $(this).text();
+		if(text == "All"){
+			var selector = title;
+		}
+		else {
+			var selector = "." + title;
+		}
+		
+		$container.attr('data-current',selector);
+		
+		$container.isotope({ 
+			filter: selector,
+			animationOptions: {
+				duration: 750,
+				easing: 'linear',
+				queue: false,
+			}
+		});
+		
+		checkActive();
+		
+		return false;
+	});
+	
+	function checkActive(){
+	
+	$('#nav a').each(function(){
+		
+		$(this).css({
+			color: '#595959'
+		});
+	
+		var title = $(this).attr('title');
+				
+		title = '.'+title;
+		
+		if(title=='.*'){
+			title = '*';
+		}
+		
+		
+		var currentCat = $container.attr('data-current');
+		
+		if(title==currentCat){
+			$(this).css({
+			color: '#00ff00'
+		});
+		}
+		
+	});
+	
+	
+	}
+	
+	var eventListView;
+	
+	TIM.mainCollection = TIM.mainCollection || new (TIM.collections.Events);
+	
+	TIM.mainCollection.fetch({
+	  success: function(a,b,c) {
+
+	    eventListView = new TIM.views.EventList({collection: TIM.mainCollection});
+	    
+	    eventListView.render();
+	    
+	    $('#content').html($('.events').html());
+	    
+	    $('.events').isotope({
+    		filter: toFilter,
+    		animationOptions: {
+    			duration: 750,
+    			easing: 'linear',
+    			queue: false,
+    		}
+    	});
+	    
+	  },
+	  error: function(a,b,c) {
+	    
+	  }
+	});
+});
+
+		</script>
+	</head>
+	
+	<body>
+		
+		<center>
+		<div id="header">
+			<img src="images/terence_header_short.png"/>
+		</div>
+		</center>
+		
+		<div id="nav">
+			<ul>
+				<li><a href="#" title="*">All</a></li>
+				<li><a href="#" title="cat1">Instagram</a></li>
+				<li><a href="#" title="cat2">Twitter</a></li>
+				<li><a href="#" title="cat3">Facebook</a></li>
+				<li><a href="#" title="cat4">LinkedIn</a></li>
+			</ul>
+		</div>
+		
+		<div id="content" data-current="">
+		
+		</div>
+	</body>
+</html>
