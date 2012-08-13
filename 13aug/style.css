@@ -98,6 +98,7 @@ margin-left:-20px;
 width: 920px;
 margin: 0 auto;
 margin-top: 20px;
+display:none;
 }
 
 .box-title {
@@ -152,6 +153,11 @@ color: #393939;
 
 #nav a:active {
 color: #151515;
+}
+
+#loading {
+  padding:50px;
+  text-align:center;
 }
 
 

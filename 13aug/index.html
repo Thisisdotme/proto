@@ -33,7 +33,7 @@ TIM.collections = {};
 TIM.views = {};
 TIM.apiUrl = "//api.thisis.me/v1/";
 TIM.pageInfo = {
-  authorName: "loree"
+  authorName: "bryce"
 }
 TIM.mainCollection = undefined;
 
@@ -231,6 +231,9 @@ $(document).ready(function(){
     			queue: false,
     		}
     	});
+    	
+    	$('#loading').hide();
+    	$('#content').fadeIn();
 	    
 	  },
 	  error: function(a,b,c) {
@@ -259,9 +262,8 @@ $(document).ready(function(){
 				<li><a href="#" title="cat4">LinkedIn</a></li>
 			</ul>
 		</div>
-		
+		<div id="loading">Loading...</div>
 		<div id="content" data-current="">
-		
 		</div>
 	</body>
 </html>
