@@ -442,6 +442,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: "garamond-premier-pro";
   margin: 0;
   font-family: inherit;
   font-weight: bold;
@@ -4954,7 +4955,7 @@ a.badge:hover {
 }
 
 .hero-unit h1 {
-  font: "futura-pt";
+  font-family: "proxima-nova";
   margin-bottom: 0;
   font-size: 60px;
   line-height: 1;
@@ -4963,6 +4964,7 @@ a.badge:hover {
 }
 
 .hero-unit p {
+  font-family: "proxima-nova";
   font-size: 18px;
   font-weight: 200;
   line-height: 27px;

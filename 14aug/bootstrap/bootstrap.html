@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0055)http://twitter.github.com/bootstrap/examples/hero.html# -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>thisis.me</title>
@@ -8,8 +7,15 @@
     <meta name="author" content="">
 
 	<!-- TYPEKIT -->
-	<script type="text/javascript" src="//use.typekit.net/twe7pat.js"></script>
-	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<script type="text/javascript">
+	  (function() {
+	    var config = {
+	      kitId: 'twe7pat',
+	      scriptTimeout: 3000
+	    };
+	    var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+	  })();
+	</script>
 
     <!-- Le styles -->
     <link href="bootstrap_files/bootstrap.css" rel="stylesheet">
@@ -60,7 +66,7 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1>Parise Saletti</h1>
+        <h1>PARISE SALETTI</h1>
         <p>Artist, designer &amp; photographer in NYC</p>
         <!-- ><p><a class="btn btn-primary btn-large">Learn more »</a></p> -->
       </div>
