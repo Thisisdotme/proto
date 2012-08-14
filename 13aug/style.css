@@ -86,12 +86,23 @@ background: #f8f8f8;
 font-family: arial;
 font-size: 15px;
 line-height: 28px;
-margin:0;
+margin: 0;
 }
 
 #header {
-margin-top:0px;
-margin-left:-20px;
+width: 960px;
+height: 350px;
+margin-top: 0px;
+margin-left: -20px;
+background-image: url(images/phil_header_short.png);
+text-align:center;	
+}
+
+.header-title {
+padding-top: 40px;
+color: #fff;
+font: 700 12px/24px "open sans";
+font-size: 48px;
 }
 
 #content {
