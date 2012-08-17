@@ -34,7 +34,7 @@ var TIM = {};
 TIM.models = {};
 TIM.collections = {};
 TIM.views = {};
-TIM.apiUrl = "http://api.thisis.me/v1/";
+TIM.apiUrl = "http://api3.thisis.me/v1/";
 TIM.pageInfo = {
   authorName: "bryce"
 }
@@ -53,7 +53,7 @@ TIM.collections.Events = Backbone.Collection.extend({
 		
 		//could also subclass in parse?
 		parse: function(resp) {
-		  return (resp.events);
+		  return (resp.entries);
 		},
 		
 		setUrl: function(name) {
@@ -117,7 +117,7 @@ TIM.views.EventList  = Backbone.View.extend({
 		  
 		  var photo = item.get('photo');
 		  
-		  if (photo) {
+		  if (photo && false) {
 		    cat += "_cat5";
 		    imgTag = '<br><img src="' + photo.image_url  +  '"/>'
 		  }
@@ -148,7 +148,7 @@ $(document).ready(function(){
   console.log(parsedUri);
   
   TIM.pageInfo.authorName = parsedUri.queryKey.author || 'phil';
-  
+  $('body').addClass( parsedUri.queryKey.author || 'default');
   
 	
 	var $container = $('#content');
@@ -230,7 +230,6 @@ $(document).ready(function(){
 	
 	TIM.mainCollection = TIM.mainCollection || new (TIM.collections.Events);
 	
-	
 	TIM.mainCollection.setUrl(TIM.pageInfo.authorName);
 	
 	TIM.mainCollection.fetch({
@@ -253,9 +252,6 @@ $(document).ready(function(){
     			queue: false,
     		}
     	});
-    	
-    	
-	    
 	  },
 	  error: function(a,b,c) {
 	    
@@ -280,8 +276,8 @@ $(document).ready(function(){
 				<li><a href="#" title="cat2">Twitter</a></li>
 				<li><a href="#" title="cat3">Facebook</a></li>
 				<li><a href="#" title="cat4">LinkedIn</a></li>
-				<li><a href="#" title="cat3_cat5">Facebook Posts with a Photo</a></li>
-					<li><a href="#" title="cat2_cat5">Twitter Posts with a Photo</a></li>
+				<!-- <li><a href="#" title="cat3_cat5">Facebook Posts with a Photo</a></li>
+					<li><a href="#" title="cat2_cat5">Twitter Posts with a Photo</a></li> -->
 			</ul>
 		</div>
 		<div id="loading">Loading...</div>

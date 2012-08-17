@@ -91,11 +91,20 @@ margin: 0;
 
 #header {
 width: 960px;
-height: 590px;
+height: 605px;
 margin-top: 0px;
 margin-left: -20px;
-background-image: url(images/cover_parise_lg.png);
-text-align:center;	
+background:#fff;
+text-align:center;
+background-size:cover;	
+}
+
+.mchammer #header {
+  background-image: url(images/hammer_cover.png);
+}
+
+.default #header {
+  background-image: url(images/cover_parise_lg.png);
 }
 
 .header-title {
