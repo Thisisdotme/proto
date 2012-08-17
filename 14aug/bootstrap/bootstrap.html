@@ -24,6 +24,11 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      .tagline {
+        font-style:italic;
+        color:#999;
+      }
+      
     </style>
     <link href="bootstrap_files/bootstrap-responsive.css" rel="stylesheet">
 
@@ -70,51 +75,13 @@
         <p>Artist, designer &amp; photographer in NYC</p>
         <!-- ><p><a class="btn btn-primary btn-large">Learn more »</a></p> -->
       </div>
-
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-       </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </div>
+      
+      <div id="content-body">
+      
+      
       </div>
-
-      <div class="row">
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-       </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-       </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </div>
+      <div id="loading">
+        Loading...
       </div>
 
       <hr>
@@ -141,5 +108,82 @@
     <script src="./bootstrap_files/bootstrap-collapse.js"></script>
     <script src="./bootstrap_files/bootstrap-carousel.js"></script>
     <script src="./bootstrap_files/bootstrap-typeahead.js"></script>
+    
+    <script src="../js/underscore.js"></script>
+		<script src="../js/backbone.js"></script>
+		<script src="../js/jquery.timeago.js"></script>
+		<script src="../js/plugins.js"></script>
+		<script src="../js/event_fetcher.js"></script>
+		
+		<script>
+		
+		//use Mustache formatting, which is closer to Dust 
+		/*
+		_.templateSettings = {
+      //interpolate : /\{\{(.+?)\}\}/g  ///or don't use mustache for now!
+    };
+    
+    */
+		
+		var eventListView; //just keeping this out here for debugging
+		
+  	TIM.mainCollection = TIM.mainCollection || new (TIM.collections.Events);
+  	TIM.mainCollection.setUrl(TIM.pageInfo.authorName);
+  	
+  	$(function() {
+  	  
+  	  TIM.mainCollection.fetch({
+    	  success: function(a,b,c) {
+    	    eventListView = new TIM.views.EventList({
+    	        collection: TIM.mainCollection, 
+    	        template:'tmpl-events',
+    	        el:$('#content-body')
+    	    });  
+    	    eventListView.render();
+    	    $('#loading').hide();
+    	  },
+    	  error: function(a,b,c) {
+
+    	  }
+    	});
+    	
+  	})
+  	
+		</script>
+		
+		<script id='tmpl-events' type='text/template'>
+		  <% 
+		    var event, newRow, endRow;
+		    for (var i = 0; i < events.length; i++ ) { 
+		  %>
+		    <% event = events[i];
+		       newRow = i % 3 == 0;
+		       endRow = i % 3 == 2;
+		     %>
+		      <% if (newRow) { 
+		          console.log('new row, index is ', i)
+		      %>
+            <div class="row">
+          <% 
+            } 
+          %>
+              <div class="span4">
+                 <h2><%= event.headline %></h2>
+                 <p>
+                  <%= event.content %>
+                  </p>
+                 <p class="tagline"><%= event.tagline %></p>
+              </div>
+          <% 
+            if (endRow) { 
+          %>
+            </div>
+          <% 
+            }
+           %>
+      <% 
+        } 
+      %>
+    </script>
 
 </body></html>
