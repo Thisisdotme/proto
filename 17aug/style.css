@@ -111,6 +111,10 @@ background-size:cover;
   background-image: url(images/phil_cover.png);
 }
 
+.xxx-unknown #header {
+  background-image: url(images/unknown_author.jpg);
+}
+
 .header-title {
 padding-top: 40px;
 color: #fff;

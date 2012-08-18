@@ -142,13 +142,30 @@ TIM.views.EventList  = Backbone.View.extend({
   }
 });
 
+var authorsWithCovers = "mchammer phil".split(' '), author, authorClass;
+
 $(document).ready(function(){
   
   var parsedUri = parseUri(window.location.href);
   console.log(parsedUri);
   
-  TIM.pageInfo.authorName = parsedUri.queryKey.author || 'phil';
-  $('body').addClass( parsedUri.queryKey.author || 'default');
+  author = parsedUri.queryKey.author
+  authorClass = "default";
+  
+  if(author) {
+    authorClass = "xxx-unknown";
+    for(var i = 0; i < authorsWithCovers.length; i++) {
+      if (authorsWithCovers[i] === author) {
+        authorClass = author;
+      }
+    }
+    
+  }
+  
+  
+  TIM.pageInfo.authorName = author || 'phil';
+  
+  $('body').addClass(authorClass);
   
 	
 	var $container = $('#content');
