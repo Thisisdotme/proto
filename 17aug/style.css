@@ -103,8 +103,12 @@ background-size:cover;
   background-image: url(images/hammer_cover.png);
 }
 
+.phil #header {
+  background-image: url(images/phil_cover.png);
+}
+
 .default #header {
-  background-image: url(images/cover_parise_lg.png);
+  background-image: url(images/phil_cover.png);
 }
 
 .header-title {
