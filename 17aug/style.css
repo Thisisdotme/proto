@@ -108,6 +108,14 @@ position:relative;
   background-image: url(images/phil_cover.png);
 }
 
+.loree #header {
+  background-image: url(images/loree_cover.jpg);
+}
+
+.philblack #header {
+  background-image: url(images/philblack_cover.png);
+}
+
 .default #header {
   background-image: url(images/phil_cover.png);
 }
@@ -156,7 +164,7 @@ text-align:left;
 }
 
 #location-and-time .label {
-  font-size:16px;
+  font-size:14px;
   margin-top:12px;
 }
 
@@ -167,7 +175,6 @@ text-align:left;
 #content {
 width: 920px;
 margin: 0 auto;
-x-margin-top: 20px;
 display:none;
 }
 

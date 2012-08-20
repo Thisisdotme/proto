@@ -85,8 +85,12 @@ TIM.views.EventList  = Backbone.View.extend({
 		var html = "";
 
 		var i = 0;
+		
+		console.log("collection", this.collection);
+		
 		this.collection.each(function(item) {
 		  var service = "facebook";
+		  var type = item.get("type");
 		  var origin = item.get('origin');
 		  
 		  if (origin.known) {
@@ -96,17 +100,17 @@ TIM.views.EventList  = Backbone.View.extend({
 		  }
 		  
 		  var cat = 'cat5';
-		  if(service == 'instagram') {
+		  if(type == 'photo') {
 		    cat = 'cat1'
 		  }
-		  if(service == 'twitter') {
+		  if(type == 'follow') {
+		    cat = 'cat4'
+		  }
+		  if(type == 'status') {
 		    cat = 'cat2'
 		  }
-		  if(service == 'facebook') {
+		  if(service == 'checkin') {
 		    cat = 'cat3'
-		  }
-		  if(service == 'linkedin') {
-		    cat = 'cat4'
 		  }
 		  
 		  var headline =  item.get('headline') || '';
@@ -125,7 +129,7 @@ TIM.views.EventList  = Backbone.View.extend({
 		  var imgTag = '';
 		  var photo;
 		  
-		  console.log("item: ",  item);
+		  console.log("item: ",  item.get('type'));
 		  
 		  var detail = item.get('post_type_detail');
 		  if (detail && detail.photo) {
@@ -157,7 +161,7 @@ TIM.views.EventList  = Backbone.View.extend({
   }
 });
 
-var authorsWithCovers = "mchammer phil".split(' '), author, authorClass;
+var authorsWithCovers = "mchammer phil loree philblack".split(' '), author, authorClass;
 
 var authorDisplayNames = {
   "phil" : "Phil",
@@ -336,10 +340,10 @@ $(document).ready(function(){
 		<div id="nav">
 			<ul>
 				<li><a href="#" title="*">All</a></li>
-				<li><a href="#" title="cat1">Instagram</a></li>
-				<li><a href="#" title="cat2">Twitter</a></li>
-				<li><a href="#" title="cat3">Facebook</a></li>
-				<li><a href="#" title="cat4">LinkedIn</a></li>
+				<li><a href="#" title="cat1">Photos</a></li>
+				<li><a href="#" title="cat2">Status Updates</a></li>
+				<li><a href="#" title="cat3">Checkin</a></li>
+				<li><a href="#" title="cat4">Follow</a></li>
 				<!-- <li><a href="#" title="cat3_cat5">Facebook Posts with a Photo</a></li>
 					<li><a href="#" title="cat2_cat5">Twitter Posts with a Photo</a></li> -->
 			</ul>
