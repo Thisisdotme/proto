@@ -62,6 +62,9 @@ var authorHeadlines = {
 }
 
 function generateHeadline(authorname) {
+  
+  authorname = authorname || "phil";
+  
   for (var i = 0; i < authorsWithHeadlines.length; i++) {
     if(authorsWithHeadlines[i] === authorname) {
       return;
@@ -185,6 +188,7 @@ TIM.views.EventList  = Backbone.View.extend({
 		  
 		  //skip correlations for now
 		  if (type !== 'correlation') {
+		    		    
 		    var headline =  item.get('headline') || '';
   		  var content =  item.get('content') || '';
 
@@ -242,7 +246,6 @@ TIM.views.EventList  = Backbone.View.extend({
 $(document).ready(function(){
   
   var parsedUri = parseUri(window.location.href);
-  console.log(parsedUri);
   
   author = parsedUri.queryKey.author
   authorClass = "default";
