@@ -90,7 +90,6 @@ margin: 0;
 }
 
 #header {
-<<<<<<< HEAD
 width: 960px;
 height: 605px;
 margin-top: 0px;
@@ -123,14 +122,11 @@ position:relative;
 
 .xxx-unknown #header {
   background-image: url(images/unknown_author.jpg);
-=======
 width: 1020px;
 height: 643px;
 margin-top: 0px;
 margin-left: -20px;
-background-image: url(images/hammer_cover.png);
 text-align:center;	
->>>>>>> style changes
 }
 
 .header-title {
