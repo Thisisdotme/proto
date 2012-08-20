@@ -197,10 +197,8 @@ font-size: 48px;
 }
 
 .philblack #author-headlines h3, .xxx-unknown #author-headlines h3 {
-  text-shadow: 2px 2px #555;
+  text-shadow: 1px 1px #555;
 }
-
-
 
 #author-headlines .topstory {
   margin-bottom:10px;
@@ -226,7 +224,6 @@ font-size: 48px;
   font-family: avenir,sans-serif;
   line-height:1.1;
 }
-
 
 .events {
   display:none;
