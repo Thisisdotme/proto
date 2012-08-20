@@ -39,7 +39,7 @@ TIM.pageInfo = {
   authorName: ""
 }
 TIM.eventCollection = undefined;
-TIM.usePreloadedEvents = true;
+TIM.usePreloadedEvents = false;
 
 TIM.models.Event  = Backbone.Model.extend({
   // massage/normalize data in 'parse'?
@@ -66,7 +66,7 @@ TIM.collections.Events = Backbone.Collection.extend({
 		  if (TIM.usePreloadedEvents) {
 		    this.url = "js/events-" + TIM.pageInfo.authorName + ".js";
 		  } else {
-		    this.url = TIM.apiUrl + 'authors/' + TIM.pageInfo.authorName + '/events'
+		    this.url = TIM.apiUrl + 'authors/' + TIM.pageInfo.authorName + '/events?count=200'
 		  }
 		}
 
@@ -123,11 +123,17 @@ TIM.views.EventList  = Backbone.View.extend({
 		  var attribution = timeago + ' via ' + service;
 		  
 		  var imgTag = '';
+		  var photo;
 		  
-		  var photo = item.get('photo');
+		  console.log("item: ",  item);
 		  
-		  if (photo && false) {
-		    cat += "_cat5";
+		  var detail = item.get('post_type_detail');
+		  if (detail && detail.photo) {
+		    photo = detail.photo[2];
+		  }
+		  
+		  if (photo) {
+		   // cat += "_cat5";
 		    imgTag = '<br><img src="' + photo.image_url  +  '"/>'
 		  }
 		  
@@ -153,6 +159,11 @@ TIM.views.EventList  = Backbone.View.extend({
 
 var authorsWithCovers = "mchammer phil".split(' '), author, authorClass;
 
+var authorDisplayNames = {
+  "phil" : "Phil",
+  "mchammer" : "Hammer"
+}
+  
 $(document).ready(function(){
   
   var parsedUri = parseUri(window.location.href);
@@ -272,7 +283,10 @@ $(document).ready(function(){
 	});
 	
 	function setTimeAndLocationHTML (authorFirstName) {
-	  authorFirstName = authorFirstName || "HAMMER";
+	  authorFirstName = authorFirstName || TIM.pageInfo.authorName;
+	  if (authorDisplayNames[authorFirstName]) {
+	    authorFirstName = authorDisplayNames[authorFirstName]
+	  }
 	  var html = '';
 	  var timeString = getTimeString();
 	  var templateContext = {

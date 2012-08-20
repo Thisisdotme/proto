@@ -141,6 +141,11 @@ text-align:left;
 
 #location-and-time .label {
   font-size:16px;
+  margin-top:12px;
+}
+
+#location-and-time .label:first-letter {
+    text-transform: uppercase;
 }
 
 #content {
