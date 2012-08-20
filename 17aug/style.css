@@ -136,6 +136,10 @@ font: 700 12px/24px "open sans";
 font-size: 48px;
 }
 
+.events {
+  display:none;
+}
+
 #location-and-time {
 position:absolute;
 right:19px;
