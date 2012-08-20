@@ -36,17 +36,18 @@ TIM.collections = {};
 TIM.views = {};
 TIM.apiUrl = "http://api3.thisis.me/v1/";
 TIM.pageInfo = {
-  authorName: "bryce"
+  authorName: ""
 }
-TIM.mainCollection = undefined;
+TIM.eventCollection = undefined;
+TIM.usePreloadedEvents = true;
 
 TIM.models.Event  = Backbone.Model.extend({
-  
+  // massage/normalize data in 'parse'?
 });
 
 TIM.collections.Events = Backbone.Collection.extend({
 		
-		url: TIM.apiUrl + 'authors/' + TIM.pageInfo.authorName + '/events',
+		url: TIM.usePreloadedEvents ? "js/events-" + TIM.pageInfo.authorName + ".js" : TIM.apiUrl + 'authors/' + TIM.pageInfo.authorName + '/events',
 		
 		initialize: function() {
 		},
@@ -56,9 +57,17 @@ TIM.collections.Events = Backbone.Collection.extend({
 		  return (resp.entries);
 		},
 		
+		prepareForDisplay: function() {
+		  
+		},
+		
 		setUrl: function(name) {
 		  name = name || "phil";
-		  this.url = TIM.apiUrl + 'authors/' + name + '/events';
+		  if (TIM.usePreloadedEvents) {
+		    this.url = "js/events-" + TIM.pageInfo.authorName + ".js";
+		  } else {
+		    this.url = TIM.apiUrl + 'authors/' + TIM.pageInfo.authorName + '/events'
+		  }
 		}
 
 });
@@ -166,22 +175,9 @@ $(document).ready(function(){
   TIM.pageInfo.authorName = author || 'phil';
   
   $('body').addClass(authorClass);
-  
 	
 	var $container = $('#content');
 	var toFilter = '*';
-	/*
-	//commented out the original isotope code
-	
-	$container.isotope({
-		filter: toFilter,
-		animationOptions: {
-			duration: 750,
-			easing: 'linear',
-			queue: false,
-		}
-	});
-	*/
 	
 	$container.attr('data-current',toFilter);
 	
@@ -245,14 +241,14 @@ $(document).ready(function(){
 	
 	var eventListView;
 	
-	TIM.mainCollection = TIM.mainCollection || new (TIM.collections.Events);
+	TIM.eventCollection = TIM.eventCollection || new (TIM.collections.Events);
 	
-	TIM.mainCollection.setUrl(TIM.pageInfo.authorName);
+	TIM.eventCollection.setUrl(TIM.pageInfo.authorName);
 	
-	TIM.mainCollection.fetch({
+	TIM.eventCollection.fetch({
 	  success: function(a,b,c) {
 
-	    eventListView = new TIM.views.EventList({collection: TIM.mainCollection});
+	    eventListView = new TIM.views.EventList({collection: TIM.eventCollection});
 	    
 	    eventListView.render();
 	    
@@ -274,6 +270,40 @@ $(document).ready(function(){
 	    
 	  }
 	});
+	
+	function setTimeAndLocationHTML (authorFirstName) {
+	  authorFirstName = authorFirstName || "HAMMER";
+	  var html = '';
+	  var timeString = getTimeString();
+	  var templateContext = {
+	    name: authorFirstName,
+	    city: "San Francisco",
+	    time: timeString
+	  }
+	  
+	  html += "<div><p class='label'>" + templateContext.name + " is in </p>"
+          + templateContext.city + "</div>"
+          + "<div class='time'><p class='label'>Local Time</p>" + templateContext.time + "</div>";
+    
+    $('#location-and-time').html(html);
+  }
+  
+	function getTimeString() {
+	  var time=new Date();
+    var hours=time.getHours();
+    var minutes=time.getMinutes();
+    var ampm = " AM";
+    minutes=((minutes < 10) ? "0" : "") + minutes;
+    if (hours > 12) {
+      hours -= 12;
+      ampm = " PM"
+    }
+    
+    return hours + ":" + minutes + ampm;
+	}
+	
+	setTimeAndLocationHTML();
+	
 });
 
 		</script>
@@ -283,6 +313,9 @@ $(document).ready(function(){
 		
 		<center>
 		<div id="header">
+		  <div id="location-and-time">
+		    
+		  </div>
 		</div>
 		</center>
 		

@@ -97,6 +97,7 @@ margin-left: -20px;
 background:#fff;
 text-align:center;
 background-size:cover;	
+position:relative;
 }
 
 .mchammer #header {
@@ -120,6 +121,26 @@ padding-top: 40px;
 color: #fff;
 font: 700 12px/24px "open sans";
 font-size: 48px;
+}
+
+#location-and-time {
+position:absolute;
+right:4%;
+bottom:4%;
+color: #fff;
+font: 700 12px/24px "open sans";
+font-size: 24px;
+font-weight:100;
+text-align:left;
+}
+
+#location-and-time > p {
+  display:table-cell;
+  margin-left:20px;
+}
+
+#location-and-time .label {
+  font-size:16px;
 }
 
 #content {
