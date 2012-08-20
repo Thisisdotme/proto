@@ -90,6 +90,7 @@ margin: 0;
 }
 
 #header {
+<<<<<<< HEAD
 width: 960px;
 height: 605px;
 margin-top: 0px;
@@ -114,6 +115,14 @@ position:relative;
 
 .xxx-unknown #header {
   background-image: url(images/unknown_author.jpg);
+=======
+width: 1020px;
+height: 643px;
+margin-top: 0px;
+margin-left: -20px;
+background-image: url(images/hammer_cover.png);
+text-align:center;	
+>>>>>>> style changes
 }
 
 .header-title {
@@ -180,13 +189,13 @@ overflow:hidden;
 
 .box {
 color: #212121;
-padding: 15px;
+padding: 10px;
 float: left;
 margin-left: 10px;
 margin-right: 10px;
 width: 250px;
 background: #ffffff;
-/* border: 2px solid #787878; */
+border: 1px solid #eee;
 margin-bottom: 20px;
 }
 
