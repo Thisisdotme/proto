@@ -153,13 +153,15 @@ position:relative;
 }
 
 .philblack #author-header {
-  color:#ccc;
+  color:#fff;
+  text-shadow: 1px 1px #666;
 }
 
 #author-header h1 {
   padding:0;
   margin-bottom:30px;
   text-transform:uppercase;
+  
 }
 
 #author-header h2 {

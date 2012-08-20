@@ -16,6 +16,8 @@ var authorDisplayNames = {
   "mchammer" : "Hammer"
 }
 
+var authorsWithHeadlines = "mchammer phil".split(' ');
+
 var authorHeadlines = {
   "phil" : {
     "full_name" : "Phil Goffin",
@@ -52,14 +54,20 @@ var authorHeadlines = {
                         "tagline" : "Kiip is doing well!"
                       },
                       {
-                        "headline" : "True Ventures Invests in Quality",
-                        "tagline" : "especially thisis.me"
+                        "headline" : "Golfing with @JackNicklaus",
+                        "tagline" : "8 days ago"
                       },
                     ]
   }
 }
 
 function generateHeadline(authorname) {
+  for (var i = 0; i < authorsWithHeadlines.length; i++) {
+    if(authorsWithHeadlines[i] === authorname) {
+      return;
+    }
+  }
+  
   var headlineObj = authorHeadlines[authorname];
   if (!headlineObj) {
     headlineObj = {
