@@ -81,6 +81,15 @@ table {
 /*==============================
 	MY STYLES
 ==============================*/
+
+/*
+@font-face
+{
+	font-family:"avenir";
+	src:url(fonts/Avenir.ttc) format(opentype);
+}
+*/
+
 body {
 background: #f8f8f8;
 font-family: arial;
@@ -122,11 +131,43 @@ position:relative;
 
 .xxx-unknown #header {
   background-image: url(images/unknown_author.jpg);
-width: 1020px;
-height: 643px;
-margin-top: 0px;
-margin-left: -20px;
-text-align:center;	
+  width: 1020px;
+  height: 643px;
+  margin-top: 0px;
+  margin-left: -20px;
+  text-align:center;	
+}
+
+#author-header {
+  position:absolute;
+  text-align:left;
+  color:#fff;
+  top:35px;
+  left:17px;
+  /* font: 400 12px/24px "Avenir Medium" sans-serif; */
+  font-size:72px;
+  padding:0;
+  margin:0;
+  width:920px;
+  font-family: avenir,sans-serif;
+}
+
+.philblack #author-header {
+  color:#ccc;
+}
+
+#author-header h1 {
+  padding:0;
+  margin-bottom:30px;
+  text-transform:uppercase;
+}
+
+#author-header h2 {
+  position:absolute;
+   font-size:24px;
+   font-weight:200;
+   padding:0;
+   margin:0;
 }
 
 .header-title {
@@ -135,6 +176,55 @@ color: #fff;
 font: 700 12px/24px "open sans";
 font-size: 48px;
 }
+
+#author-headlines {
+  position:absolute;
+  text-align:left;
+  color:#000;
+  bottom:17px;
+  left:20px;
+  padding:0;
+  margin:0;
+  width:260px;
+  font-family: avenir,sans-serif;
+  line-height:1.1;
+}
+
+.philblack #author-headlines, .xxx-unknown #author-headlines {
+  color:#fff;
+}
+
+.philblack #author-headlines h3, .xxx-unknown #author-headlines h3 {
+  text-shadow: 2px 2px #555;
+}
+
+
+
+#author-headlines .topstory {
+  margin-bottom:10px;
+}
+
+#author-headlines .topstory:last-child {
+  margin-bottom:0;
+}
+
+#author-headlines h3 {
+  font-size:24px;
+  padding:0;
+  margin-bottom:0px;
+  font-family: avenir,sans-serif;
+  font-weight: 700;
+  text-transform:uppercase;
+}
+
+#author-headlines h4 {
+  font-size:18px;
+  padding:0;
+  font-weight: 100;
+  font-family: avenir,sans-serif;
+  line-height:1.1;
+}
+
 
 .events {
   display:none;
@@ -165,8 +255,6 @@ text-align:left;
   width:110px;
 }
 
-
-
 #location-and-time > p {
   display:table-cell;
   margin-left:20px;
@@ -178,7 +266,7 @@ text-align:left;
 }
 
 #location-and-time .label:first-letter {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 #content {

@@ -9,6 +9,101 @@ TIM.pageInfo = {
 TIM.eventCollection = undefined;
 TIM.usePreloadedEvents = false;
 
+var authorsWithCovers = "mchammer phil loree philblack".split(' '), author, authorClass;
+
+var authorDisplayNames = {
+  "phil" : "Phil",
+  "mchammer" : "Hammer"
+}
+
+var authorHeadlines = {
+  "phil" : {
+    "full_name" : "Phil Goffin",
+    "tagline" : "Internet Entrepreneur, Disruptive Investor, Husband &amp; Father",
+    "topstories" :  [
+                      {
+                        "headline" : "Trip to Barcelona",
+                        "tagline" : "added 3 hours ago"
+                      },
+                      {
+                        "headline" : "thisis.me launch party photos",
+                        "tagline" : "added last month"
+                      }
+                    ]
+  },
+  "mchammer" : {
+    "full_name" : "MC Hammer",
+    "tagline" : "Rapper, Internet Entrepreneur, Spokesman & Actor"
+  },
+    "loree" : {
+    "full_name" : "Loree Hirschman",
+    "tagline" : "Former Navy Jet Pilot, Entrepreneur & Author"
+  },
+    "philblack" : {
+    "full_name" : "Phil Black",
+    "tagline" : "Entrepreneur & Technology Investor",
+    "topstories" :  [
+                      {
+                        "headline" : "True Ventures Invests in Quality",
+                        "tagline" : "especially thisis.me"
+                      },
+                      {
+                        "headline" : "@brianwong, Good Point!",
+                        "tagline" : "Kiip is doing well!"
+                      },
+                      {
+                        "headline" : "True Ventures Invests in Quality",
+                        "tagline" : "especially thisis.me"
+                      },
+                    ]
+  }
+}
+
+function generateHeadline(authorname) {
+  var headlineObj = authorHeadlines[authorname];
+  if (!headlineObj) {
+    headlineObj = {
+      full_name: authorname,
+      tagline: "Internet Entrepreneur, Person",
+      "topstories" :  [
+                        {
+                          "headline" : "Headline 1",
+                          "tagline" : "4 hours ago"
+                        },
+                        {
+                          "headline" : "Headline 2",
+                          "tagline" : "8 hours ago"
+                        },
+                        {
+                          "headline" : "Headline 3",
+                          "tagline" : "2 days  ago"
+                        }
+                      ]
+    }
+  }
+  var html = '';
+  
+   html += '<h1 id="author-name">' + headlineObj.full_name + '</h1>'
+          + '<h2 id="author-tagline">' + headlineObj.tagline + '</h2>';
+  
+  $('#author-header').html(html);
+  
+  html = '';
+  if (headlineObj.topstories) {
+    for (var i = 0; i < headlineObj.topstories.length; i++) {
+      var story = headlineObj.topstories[i];
+      html += '<div class="topstory">'
+            + '<h3 class="topstory-headline">' + story.headline + '</h3>'
+            + '<h4 class="topstory-tagline">' + story.tagline + '</h2>'
+            + '</div>';
+    }
+  }
+  
+  
+  
+  $('#author-headlines').html(html);
+}
+
 TIM.models.Event  = Backbone.Model.extend({
   // massage/normalize data in 'parse'?
 });
@@ -51,12 +146,11 @@ TIM.views.EventList  = Backbone.View.extend({
   render: function(tmpl, callback) {
     
 		var html = "";
-
 		var i = 0;
-		
-		console.log("collection", this.collection);
+
 		
 		this.collection.each(function(item) {
+		  
 		  var service = "facebook";
 		  var type = item.get("type");
 		  var origin = item.get('origin');
@@ -82,7 +176,7 @@ TIM.views.EventList  = Backbone.View.extend({
 		  }
 		  
 		  //skip correlations for now
-		  if(type !== 'correlation') {
+		  if (type !== 'correlation') {
 		    var headline =  item.get('headline') || '';
   		  var content =  item.get('content') || '';
 
@@ -99,7 +193,7 @@ TIM.views.EventList  = Backbone.View.extend({
   		  var imgTag = '';
   		  var photo;
 
-  		  console.log("item: ",  item.get('type'));
+  		  //console.log("item: ",  item.get('type'));
 
   		  var detail = item.get('post_type_detail');
   		  if (detail && detail.photo) {
@@ -132,18 +226,10 @@ TIM.views.EventList  = Backbone.View.extend({
       if(callback) {
         callback(html);
       }
-		  
-		  
-    
   }
 });
 
-var authorsWithCovers = "mchammer phil loree philblack".split(' '), author, authorClass;
-
-var authorDisplayNames = {
-  "phil" : "Phil",
-  "mchammer" : "Hammer"
-}
+//jQuery document load event
   
 $(document).ready(function(){
   
@@ -153,6 +239,8 @@ $(document).ready(function(){
   author = parsedUri.queryKey.author
   authorClass = "default";
   
+  generateHeadline(author);
+  
   if(author) {
     authorClass = "xxx-unknown";
     for(var i = 0; i < authorsWithCovers.length; i++) {
@@ -160,7 +248,6 @@ $(document).ready(function(){
         authorClass = author;
       }
     }
-    
   }
   
   TIM.pageInfo.authorName = author || 'phil';
@@ -177,7 +264,7 @@ $(document).ready(function(){
 	$('#nav a').click(function(){
 		var title = $(this).attr('title');
 		var text = $(this).text();
-		if(text == "All"){
+		if(text == "All") {
 			var selector = title;
 		}
 		else {
