@@ -77,7 +77,7 @@ TIM.views.EventList  = Backbone.View.extend({
 		  if(type == 'status') {
 		    cat = 'cat2'
 		  }
-		  if(service == 'checkin') {
+		  if(type == 'checkin') {
 		    cat = 'cat3'
 		  }
 		  
