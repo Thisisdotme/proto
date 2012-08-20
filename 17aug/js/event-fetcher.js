@@ -81,50 +81,59 @@ TIM.views.EventList  = Backbone.View.extend({
 		    cat = 'cat3'
 		  }
 		  
-		  var headline =  item.get('headline') || '';
-		  var content =  item.get('content') || '';
+		  //skip correlations for now
+		  if(type !== 'correlation') {
+		    var headline =  item.get('headline') || '';
+  		  var content =  item.get('content') || '';
+
+  		  var createTime = item.get("create_time");
+
+  		  var timeago = "";
+
+  		  if(createTime) {
+  		    timeago = $.timeago(new Date(item.get("create_time") * 1000));
+  		  }
+
+  		  var attribution = timeago + ' via ' + service;
+
+  		  var imgTag = '';
+  		  var photo;
+
+  		  console.log("item: ",  item.get('type'));
+
+  		  var detail = item.get('post_type_detail');
+  		  if (detail && detail.photo) {
+  		    photo = detail.photo[2];
+  		  }
+
+  		  if (photo) {
+  		   // cat += "_cat5";
+  		    imgTag = '<br><img src="' + photo.image_url  +  '"/>'
+  		  }
+
+  		  var headlineElem = headline !== '' ? ('<h2 class="box-title">' + headline + '</h2>') : '';
+  		  var contentElem = (content !== '' || imgTag != '') ? ('<div class="box-text">' + content + imgTag + '<br/>') : '';
+
+  		  html += '<div class="box ' + cat + '">'
+  		        + headlineElem
+    		      + '<div class="box-text">' + content + imgTag + '<br/>'
+    		      + '<span class="attribution">' + attribution + '</span>'
+    		      + '</div></div>';
+    		i++;
+  		}
+  		});
+
+      this.$el.append(html);
+
+      if($('#content').find(this.el).length == 0)  {
+        $('#content').append(this.$el);
+      }
+
+      if(callback) {
+        callback(html);
+      }
 		  
-		  var createTime = item.get("create_time");
 		  
-		  var timeago = "";
-		  
-		  if(createTime) {
-		    timeago = $.timeago(new Date(item.get("create_time") * 1000));
-		  }
-		  
-		  var attribution = timeago + ' via ' + service;
-		  
-		  var imgTag = '';
-		  var photo;
-		  
-		  console.log("item: ",  item.get('type'));
-		  
-		  var detail = item.get('post_type_detail');
-		  if (detail && detail.photo) {
-		    photo = detail.photo[2];
-		  }
-		  
-		  if (photo) {
-		   // cat += "_cat5";
-		    imgTag = '<br><img src="' + photo.image_url  +  '"/>'
-		  }
-		  
-		  html += '<div class="box ' + cat + '"><h2 class="box-title">' + headline + '</h2>'
-  		      + '<div class="box-text">' + content + imgTag + '<br/>'
-  		      + '<span class="attribution">' + attribution + '</span>'
-  		      + '</div></div>';
-  		i++;
-		});
-		
-    this.$el.append(html);
-    
-    if($('#content').find(this.el).length == 0)  {
-      $('#content').append(this.$el);
-    }
-    
-    if(callback) {
-      callback(html);
-    }
     
   }
 });
