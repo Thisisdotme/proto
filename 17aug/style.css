@@ -126,13 +126,29 @@ font-size: 48px;
 #location-and-time {
 position:absolute;
 right:4%;
-bottom:4%;
+bottom:17px;
 color: #fff;
 font: 700 12px/24px "open sans";
 font-size: 24px;
 font-weight:100;
 text-align:left;
 }
+
+#location-and-time .location{
+  position:absolute;
+  right:80px;
+  bottom:0;
+  width:200px;
+}
+
+#location-and-time .time{
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:90px;
+}
+
+
 
 #location-and-time > p {
   display:table-cell;
