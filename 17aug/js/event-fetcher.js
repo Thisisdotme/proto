@@ -388,6 +388,6 @@ $(document).ready(function(){
 	
 	setTimeAndLocationHTML();
 	
-	//window.setInterval(function() {setTimeAndLocationHTML()}, 1000)
+	window.setInterval(function() {setTimeAndLocationHTML()}, 1000)
 	
 });

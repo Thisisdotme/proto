@@ -272,6 +272,8 @@ body {
   display:none;
 }
 
+/* content styles */
+
 .box-title {
   font-size: 18px;
   font-weight: bold;
@@ -293,6 +295,7 @@ body {
 
 .box img {
   max-width:250px;
+  margin: 0 auto;
 }
 
 .attribution {
@@ -336,7 +339,11 @@ body {
   text-align:center;
 }
 
-@media screen and (max-width: 9200px) {
+@media screen and (max-width: 480px) {
+  
+  .box {
+    line-height:1.5;
+  }
   
   #main-container {
     width: 320px;
@@ -392,33 +399,30 @@ body {
   
   #location-and-time {
     position:absolute;
-    right:19px;
+    right:10px;
     bottom:8px;
     color: #fff;
-    font: 700 12px/24px "open sans";
-    font-size: 14px;
+    font-family: "open sans";
+    font-size: 13px;
     font-weight:100;
     text-align:left;
     line-height:1;
+    x-display:none;
+    text-shadow:2px #333;`
   }
 
-  #location-and-time .location{
-    position:absolute;
-    right:80px;
-    bottom:0;
-    width:200px;
+  #location-and-time .location {
+    position:static;
+    width:auto;
   }
 
-  #location-and-time .time{
-    position:absolute;
-    right:0;
-    bottom:0;
-    width:110px;
+  #location-and-time .time {
+    position:static;
+    width:auto;
   }
 
   #location-and-time > p {
     display:table-cell;
-    margin-left:20px;
   }
 
   #location-and-time .label {
@@ -446,6 +450,16 @@ body {
   .box {
     margin: 0 0 20px 0;
   }
+  
+  #loading {
+    padding-top:12px;
+  }
+  
+  .box-title {
+    margin-bottom:6px;
+    line-height:1.3;
+  }
+  
 }
 
 /* Contain floats: h5bp.com/q */
