@@ -52,11 +52,7 @@ var authorHeadlines = {
                       {
                         "headline" : "@brianwong, Good Point!",
                         "tagline" : "Kiip is doing well!"
-                      },
-                      {
-                        "headline" : "Golfing with @JackNicklaus",
-                        "tagline" : "8 days ago"
-                      },
+                      }
                     ]
   }
 }
@@ -84,10 +80,6 @@ function generateHeadline(authorname) {
                         {
                           "headline" : "Headline 2",
                           "tagline" : "8 hours ago"
-                        },
-                        {
-                          "headline" : "Headline 3",
-                          "tagline" : "2 days  ago"
                         }
                       ]
     }
@@ -396,6 +388,6 @@ $(document).ready(function(){
 	
 	setTimeAndLocationHTML();
 	
-	window.setInterval(function() {setTimeAndLocationHTML()}, 1000)
+	//window.setInterval(function() {setTimeAndLocationHTML()}, 1000)
 	
 });
